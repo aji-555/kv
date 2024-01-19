@@ -1,6 +1,7 @@
 pub mod abi;
 
 use abi::{command_request::RequestData, *};
+use bytes::Bytes;
 use http::StatusCode;
 use prost::Message;
 
@@ -40,6 +41,20 @@ impl From<&str> for Value {
     }
 }
 
+impl<const N: usize> From<&[u8; N]> for Value {
+    fn from(buf: &[u8; N]) -> Self {
+        Bytes::copy_from_slice(&buf[..]).into()
+    }
+}
+
+impl From<Bytes> for Value {
+    fn from(buf: Bytes) -> Self {
+        Self {
+            value: Some(value::Value::Binary(buf)),
+        }
+    }
+}
+
 impl CommandRequest {
     /// 创建 HGET 命令
     pub fn new_hget(table: impl Into<String>, key: impl Into<String>) -> Self {
@@ -66,6 +81,15 @@ impl CommandRequest {
             request_data: Some(RequestData::Hset(Hset {
                 table: table.into(),
                 pair: Some(Kvpair::new(key, value)),
+            })),
+        }
+    }
+
+    pub fn new_hdel(table: impl Into<String>, key: impl Into<String>) -> Self {
+        Self {
+            request_data: Some(RequestData::Hdel(Hdel {
+                table: table.into(),
+                key: key.into()
             })),
         }
     }
@@ -138,7 +162,6 @@ impl From<Vec<Value>> for CommandResponse {
         }
     }
 }
-
 
 impl TryFrom<&[u8]> for Value {
     type Error = KvError;
