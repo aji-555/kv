@@ -1,7 +1,7 @@
 use anyhow::Result;
 
 use futures::prelude::*;
-use kv::{CommandRequest};
+use kv::CommandRequest;
 use prost::Message;
 use tokio::{io::AsyncReadExt, net::TcpListener};
 use tracing::info;

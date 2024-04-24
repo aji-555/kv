@@ -11,12 +11,7 @@ pub trait Storage {
     /// 从一个 HashTable 里获取一个 key 的 value
     fn get(&self, table: &str, key: &str) -> Result<Option<Value>, KvError>;
     /// 从一个 HashTable 里设置一个 key 的 value，返回旧的 value
-    fn set(
-        &self,
-        table: &str,
-        key: &str,
-        value: Value,
-    ) -> Result<Option<Value>, KvError>;
+    fn set(&self, table: &str, key: &str, value: Value) -> Result<Option<Value>, KvError>;
     /// 查看 HashTable 中是否有 key
     fn contains(&self, table: &str, key: &str) -> Result<bool, KvError>;
     /// 从 HashTable 中删除一个 key

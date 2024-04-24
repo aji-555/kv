@@ -31,12 +31,7 @@ impl Storage for MemTable {
         Ok(table.get(key).map(|v| v.value().clone()))
     }
 
-    fn set(
-        &self,
-        table: &str,
-        key: &str,
-        value: Value,
-    ) -> Result<Option<Value>, KvError> {
+    fn set(&self, table: &str, key: &str, value: Value) -> Result<Option<Value>, KvError> {
         let table = self.get_or_create_table(table);
         Ok(table.insert(key.into(), value.into()))
     }

@@ -89,7 +89,7 @@ impl CommandRequest {
         Self {
             request_data: Some(RequestData::Hdel(Hdel {
                 table: table.into(),
-                key: key.into()
+                key: key.into(),
             })),
         }
     }

@@ -2,7 +2,7 @@ use anyhow::Result;
 
 use bytes::BytesMut;
 use futures::prelude::*;
-use kv::{CommandRequest, SledDb, Service};
+use kv::{CommandRequest, Service, SledDb};
 use prost::Message;
 use tokio::{
     io::{AsyncReadExt, AsyncWriteExt},

@@ -10,7 +10,6 @@ use tokio::{
 };
 use tokio_util::codec::{Framed, LengthDelimitedCodec};
 
-
 #[tokio::main]
 async fn main() -> Result<()> {
     tracing_subscriber::fmt::init();
